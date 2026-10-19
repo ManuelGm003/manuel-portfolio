@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Página personal de Manuel de Jesús Gutiérrez Molina - Estudiante de Ingeniería de Sistemas, Desarrollador de Software y Técnico en Soporte TI." />
+  <title>Manuel Gutiérrez | Portafolio Personal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & Variables ─────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #050d1a;
+      --bg2:       #0a1628;
+      --bg3:       #0f1f38;
+      --accent:    #00d4ff;
+      --accent2:   #00ff9d;
+      --accent3:   #7c3aed;
+      --text:      #e2e8f0;
+      --text-muted:#94a3b8;
+      --border:    rgba(0, 212, 255, 0.15);
+      --glow:      0 0 20px rgba(0, 212, 255, 0.3);
+      --glow2:     0 0 30px rgba(0, 255, 157, 0.2);
+      --radius:    16px;
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── Animated Background ───────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% -20%, rgba(0,212,255,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 110%, rgba(124,58,237,0.1) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 50% 50%, rgba(0,255,157,0.03) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Grid overlay ──────────────────────────────────── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Layout ────────────────────────────────────────── */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Navigation ────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(20px);
+      background: rgba(5, 13, 26, 0.85);
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      padding-bottom: 16px;
+    }
+
+    .nav-logo {
+      font-family: 'Fira Code', monospace;
+      font-size: 1.1rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+
+    .nav-logo span { color: var(--accent2); }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      transition: color var(--transition);
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width var(--transition);
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* ── Hero ──────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 80px 0 60px;
+    }
+
+    .hero .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,212,255,0.08);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 0.8rem;
+      font-family: 'Fira Code', monospace;
+      color: var(--accent);
+      margin-bottom: 24px;
+      animation: fadeInDown 0.6s ease both;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent2);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(1.3); }
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      animation: fadeInDown 0.6s 0.1s ease both;
+    }
+
+    h1 .name-highlight {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: block;
+    }
+
+    .hero-subtitle {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      margin-top: 16px;
+      margin-bottom: 32px;
+      animation: fadeInDown 0.6s 0.2s ease both;
+      font-weight: 300;
+    }
+
+    .hero-subtitle strong { color: var(--accent2); font-weight: 600; }
+
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      animation: fadeInDown 0.6s 0.3s ease both;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all var(--transition);
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #0099cc);
+      color: #000;
+      box-shadow: 0 4px 20px rgba(0,212,255,0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0,212,255,0.5);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--accent2);
+      border: 1px solid rgba(0,255,157,0.3);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(0,255,157,0.08);
+      border-color: var(--accent2);
+      transform: translateY(-2px);
+    }
+
+    /* Profile image */
+    .hero-image-wrapper {
+      display: flex;
+      justify-content: center;
+      animation: fadeInRight 0.8s 0.2s ease both;
+    }
+
+    .profile-frame {
+      position: relative;
+      width: 300px;
+      height: 300px;
+    }
+
+    .profile-frame::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent3), var(--accent2));
+      animation: rotate 4s linear infinite;
+    }
+
+    .profile-frame::after {
+      content: '';
+      position: absolute;
+      inset: 3px;
+      border-radius: 50%;
+      background: var(--bg);
+    }
+
+    @keyframes rotate {
+      to { transform: rotate(360deg); }
+    }
+
+    .profile-frame img {
+      position: absolute;
+      inset: 6px;
+      width: calc(100% - 12px);
+      height: calc(100% - 12px);
+      border-radius: 50%;
+      object-fit: cover;
+      z-index: 1;
+    }
+
+    .profile-badge {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      z-index: 2;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 0.75rem;
+      font-family: 'Fira Code', monospace;
+      color: var(--accent2);
+      box-shadow: var(--glow2);
+    }
+
+    /* ── Sections common ───────────────────────────────── */
+    section { padding: 80px 0; }
+
+    .section-label {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.8rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700;
+      margin-bottom: 48px;
+      letter-spacing: -0.01em;
+    }
+
+    .section-title span {
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── About ─────────────────────────────────────────── */
+    #about { border-top: 1px solid var(--border); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    .about-text p strong { color: var(--text); font-weight: 600; }
+
+    .info-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      backdrop-filter: blur(10px);
+    }
+
+    .info-card h3 {
+      font-size: 0.875rem;
+      color: var(--accent);
+      font-family: 'Fira Code', monospace;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 16px;
+      font-size: 0.9rem;
+    }
+
+    .info-item .icon { font-size: 1.1rem; margin-top: 1px; flex-shrink: 0; }
+    .info-item .label { color: var(--text-muted); font-size: 0.78rem; display: block; }
+    .info-item .value { color: var(--text); font-weight: 500; }
+
+    /* ── Skills ────────────────────────────────────────── */
+    #skills { border-top: 1px solid var(--border); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .skill-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: all var(--transition);
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+
+    .skill-card.blue::before  { background: radial-gradient(circle at top left, rgba(0,212,255,0.08), transparent 70%); }
+    .skill-card.green::before { background: radial-gradient(circle at top left, rgba(0,255,157,0.08), transparent 70%); }
+    .skill-card.purple::before{ background: radial-gradient(circle at top left, rgba(124,58,237,0.1), transparent 70%); }
+    .skill-card.orange::before{ background: radial-gradient(circle at top left, rgba(251,146,60,0.08), transparent 70%); }
+
+    .skill-card:hover { transform: translateY(-4px); border-color: rgba(0,212,255,0.3); box-shadow: var(--glow); }
+    .skill-card:hover::before { opacity: 1; }
+
+    .skill-icon { font-size: 2rem; margin-bottom: 16px; display: block; }
+    .skill-name { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .skill-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+
+    .skill-level {
+      margin-top: 16px;
+      height: 3px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+
+    .skill-level-fill { height: 100%; border-radius: 100px; transition: width 1s ease; }
+    .blue .skill-level-fill  { background: var(--accent); }
+    .green .skill-level-fill { background: var(--accent2); }
+    .purple .skill-level-fill{ background: #a78bfa; }
+    .orange .skill-level-fill{ background: #fb923c; }
+
+    /* ── Interests ─────────────────────────────────────── */
+    #interests { border-top: 1px solid var(--border); }
+
+    .interests-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      list-style: none;
+    }
+
+    .interests-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 10px 22px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all var(--transition);
+    }
+
+    .interests-list li:hover {
+      background: rgba(0,212,255,0.08);
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: var(--glow);
+    }
+
+    /* ── Links / Contact ───────────────────────────────── */
+    #links { border-top: 1px solid var(--border); }
+
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .link-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      transition: all var(--transition);
+    }
+
+    .link-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(0,212,255,0.4);
+      box-shadow: var(--glow);
+      color: var(--accent);
+    }
+
+    .link-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .link-info small { display: block; font-size: 0.75rem; color: var(--text-muted); font-weight: 400; }
+
+    /* ── Footer ────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    footer .footer-code { font-family: 'Fira Code', monospace; color: var(--accent); }
+    footer a { color: var(--accent2); text-decoration: none; }
+
+    /* ── Animations ────────────────────────────────────── */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInRight {
+      from { opacity: 0; transform: translateX(30px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Responsive ────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .hero .container { grid-template-columns: 1fr; text-align: center; }
+      .hero-image-wrapper { order: -1; }
+      .profile-frame { width: 220px; height: 220px; }
+      .about-grid { grid-template-columns: 1fr; }
+      .hero-cta { justify-content: center; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navigation ───────────────────────────── -->
+  <nav id="nav">
+    <div class="container">
+      <div class="nav-logo">&lt;<span>manuel</span>.dev /&gt;</div>
+      <ul class="nav-links">
+        <li><a href="#about">Sobre mí</a></li>
+        <li><a href="#skills">Habilidades</a></li>
+        <li><a href="#interests">Intereses</a></li>
+        <li><a href="#links">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ── Hero ─────────────────────────────────── -->
+  <header class="hero" id="home">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">Disponible para proyectos</div>
+        <h1>
+          Hola, soy
+          <span class="name-highlight">Manuel Gutiérrez</span>
+        </h1>
+        <p class="hero-subtitle">
+          Estudiante de <strong>Ingeniería de Sistemas</strong> · Desarrollador de Software ·
+          Técnico en Soporte TI
+        </p>
+        <div class="hero-cta">
+          <a href="#about" class="btn btn-primary">Conóceme</a>
+          <a href="#links" class="btn btn-secondary">Contacto</a>
+        </div>
+      </div>
+
+      <div class="hero-image-wrapper">
+        <div class="profile-frame">
+          <img src="profile.jpg" alt="Manuel de Jesús Gutiérrez Molina - Desarrollador de Software" id="profile-photo" />
+          <div class="profile-badge">💻 Dev &amp; TI</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── About ────────────────────────────────── -->
+  <section id="about">
+    <div class="container fade-in">
+      <div class="section-label">// 01. sobre mí</div>
+      <h2 class="section-title">¿Quién <span>soy</span>?</h2>
+
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            Me llamo <strong>Manuel de Jesús Gutiérrez Molina</strong>, estudiante de
+            <strong>Ingeniería de Sistemas</strong> en la Universidad Nacional de Ingeniería (UNI).
+            Soy una persona apasionada por la tecnología, siempre buscando aprender y aplicar nuevos
+            conocimientos en proyectos reales.
+          </p>
+          <p>
+            Me desenvuelvo en el área de <strong>desarrollo de software</strong>, creando
+            aplicaciones funcionales y eficientes. Paralelamente, trabajo en
+            <strong>soporte técnico TI</strong>, brindando soluciones a problemas de hardware y
+            software en equipos de cómputo y dispositivos electrónicos.
+          </p>
+          <p>
+            Mi objetivo es convertirme en un profesional integral que domine tanto el desarrollo
+            de aplicaciones como la gestión de infraestructura tecnológica, contribuyendo a
+            proyectos innovadores que generen impacto real.
+          </p>
+        </div>
+
+        <div class="info-card">
+          <h3>// info.json</h3>
+          <div class="info-item">
+            <span class="icon">🎓</span>
+            <div>
+              <span class="label">Universidad</span>
+              <span class="value">UNI - Ing. de Sistemas</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="icon">📍</span>
+            <div>
+              <span class="label">Ubicación</span>
+              <span class="value">Nicaragua</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="icon">💼</span>
+            <div>
+              <span class="label">Enfoque</span>
+              <span class="value">Dev. Software &amp; Soporte TI</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="icon">🚀</span>
+            <div>
+              <span class="label">Estado</span>
+              <span class="value">Disponible para proyectos</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Skills ────────────────────────────────── -->
+  <section id="skills">
+    <div class="container fade-in">
+      <div class="section-label">// 02. habilidades</div>
+      <h2 class="section-title">Mi <span>stack</span> tecnológico</h2>
+
+      <div class="skills-grid">
+        <div class="skill-card blue">
+          <span class="skill-icon">⚡</span>
+          <div class="skill-name">C#</div>
+          <div class="skill-desc">
+            Desarrollo de aplicaciones de escritorio y servicios backend usando .NET Framework
+            y .NET Core. Programación orientada a objetos, LINQ y manejo de APIs.
+          </div>
+          <div class="skill-level"><div class="skill-level-fill" style="width:75%"></div></div>
+        </div>
+
+        <div class="skill-card green">
+          <span class="skill-icon">🗄️</span>
+          <div class="skill-name">SQL</div>
+          <div class="skill-desc">
+            Diseño y administración de bases de datos relacionales. Consultas complejas,
+            procedimientos almacenados, optimización de queries y modelado de datos.
+          </div>
+          <div class="skill-level"><div class="skill-level-fill" style="width:70%"></div></div>
+        </div>
+
+        <div class="skill-card purple">
+          <span class="skill-icon">☕</span>
+          <div class="skill-name">Java</div>
+          <div class="skill-desc">
+            Conocimientos en programación orientada a objetos con Java, estructuras de datos,
+            colecciones y fundamentos de programación multiplataforma.
+          </div>
+          <div class="skill-level"><div class="skill-level-fill" style="width:45%"></div></div>
+        </div>
+
+        <div class="skill-card orange">
+          <span class="skill-icon">🔧</span>
+          <div class="skill-name">Soporte TI</div>
+          <div class="skill-desc">
+            Mantenimiento preventivo y correctivo de PCs y laptops. Diagnóstico y reparación
+            de dispositivos electrónicos, instalación de sistemas operativos y redes.
+          </div>
+          <div class="skill-level"><div class="skill-level-fill" style="width:80%"></div></div>
+        </div>
+
+        <div class="skill-card blue">
+          <span class="skill-icon">🌐</span>
+          <div class="skill-name">Web Básico</div>
+          <div class="skill-desc">
+            Desarrollo de páginas web con HTML5 y CSS3. Estructura semántica, diseño
+            responsivo y fundamentos de JavaScript para la web.
+          </div>
+          <div class="skill-level"><div class="skill-level-fill" style="width:55%"></div></div>
+        </div>
+
+        <div class="skill-card green">
+          <span class="skill-icon">🛠️</span>
+          <div class="skill-name">Hardware</div>
+          <div class="skill-desc">
+            Ensamblaje, diagnóstico y reparación de computadoras de escritorio y portátiles.
+            Identificación de fallas en componentes electrónicos y soluciones eficientes.
+          </div>
+          <div class="skill-level"><div class="skill-level-fill" style="width:80%"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Interests ─────────────────────────────── -->
+  <section id="interests">
+    <div class="container fade-in">
+      <div class="section-label">// 03. intereses</div>
+      <h2 class="section-title">Lo que me <span>apasiona</span></h2>
+
+      <ul class="interests-list">
+        <li>💻 Desarrollo de Software</li>
+        <li>🔐 Ciberseguridad</li>
+        <li>🗄️ Bases de Datos</li>
+        <li>🤖 Inteligencia Artificial</li>
+        <li>🔧 Reparación de Hardware</li>
+        <li>🌐 Redes y Telecomunicaciones</li>
+        <li>📱 Desarrollo Móvil</li>
+        <li>☁️ Cloud Computing</li>
+        <li>🐧 Linux y Sistemas Operativos</li>
+        <li>📚 Aprendizaje Continuo</li>
+        <li>🎮 Videojuegos</li>
+        <li>🚀 Emprendimiento Tecnológico</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── Links / Contact ───────────────────────── -->
+  <section id="links">
+    <div class="container fade-in">
+      <div class="section-label">// 04. contacto &amp; redes</div>
+      <h2 class="section-title">Encuéntrame <span>en línea</span></h2>
+
+      <div class="links-grid">
+        <a href="https://github.com/" target="_blank" rel="noopener" class="link-card" id="link-github">
+          <span class="link-icon">🐙</span>
+          <div class="link-info">
+            <strong>GitHub</strong>
+            <small>Mis repositorios</small>
+          </div>
+        </a>
+
+        <a href="https://www.linkedin.com/" target="_blank" rel="noopener" class="link-card" id="link-linkedin">
+          <span class="link-icon">💼</span>
+          <div class="link-info">
+            <strong>LinkedIn</strong>
+            <small>Perfil profesional</small>
+          </div>
+        </a>
+
+        <a href="mailto:tu-correo@ejemplo.com" class="link-card" id="link-email">
+          <span class="link-icon">📧</span>
+          <div class="link-info">
+            <strong>Email</strong>
+            <small>Escríbeme</small>
+          </div>
+        </a>
+
+        <a href="https://www.uni.edu.ni/" target="_blank" rel="noopener" class="link-card" id="link-uni">
+          <span class="link-icon">🏫</span>
+          <div class="link-info">
+            <strong>UNI</strong>
+            <small>Mi universidad</small>
+          </div>
+        </a>
+
+        <a href="https://stackoverflow.com/" target="_blank" rel="noopener" class="link-card" id="link-stackoverflow">
+          <span class="link-icon">📚</span>
+          <div class="link-info">
+            <strong>Stack Overflow</strong>
+            <small>Comunidad dev</small>
+          </div>
+        </a>
+
+        <a href="https://learn.microsoft.com/" target="_blank" rel="noopener" class="link-card" id="link-microsoft">
+          <span class="link-icon">🪟</span>
+          <div class="link-info">
+            <strong>Microsoft Learn</strong>
+            <small>Formación C# / .NET</small>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ───────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <p class="footer-code">&lt;/manuel.dev&gt;</p>
+      <p style="margin-top:8px;">
+        © 2026 <a href="#home">Manuel de Jesús Gutiérrez Molina</a> · Hecho con ❤️ y mucho ☕
+      </p>
+    </div>
+  </footer>
+
+  <!-- ── Scripts ──────────────────────────────── -->
+  <script>
+    // Scroll reveal animation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Animate skill bars when visible
+    const skillObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll('.skill-level-fill').forEach(bar => {
+            const width = bar.style.width;
+            bar.style.width = '0';
+            setTimeout(() => { bar.style.width = width; }, 100);
+          });
+        }
+      });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('#skills .container').forEach(el => skillObserver.observe(el));
+  </script>
+
+</body>
+</html>
